@@ -17,18 +17,16 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-  login() {
-    if (!this.userId || !this.password || !this.role) {
-      alert('Please fill all fields');
-      return;
-    }
+login() {
+  console.log('Login clicked', this.role);
 
-    // Navigate to Admin or User dashboard
-    if (this.role === 'ADMIN') {
-      this.router.navigate(['/admin']);
-    } else {
-      this.router.navigate(['/user']);
-    }
-  } // <-- this closes login()
-
-} // <-- this closes LoginComponent
+  if (this.role === 'ADMIN') {
+    this.router.navigate(['/admin']);
+  } else if (this.role === 'USER') {
+    this.router.navigate(['/user']);
+  } else {
+    alert('Select role');
+  }
+}
+}
+  

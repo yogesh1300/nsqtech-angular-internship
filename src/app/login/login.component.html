@@ -1,25 +1,12 @@
 <div class="login-container">
-  <div class="login-card">
-    <h2>Login</h2>
+  <h2>Login Page</h2>
+  <input type="text" [(ngModel)]="userId" placeholder="Username" />
+  <input type="password" [(ngModel)]="password" placeholder="Password" />
+  <select [(ngModel)]="role">
+    <option value="">Select Role</option>
+    <option value="ADMIN">Admin</option>
+    <option value="USER">User</option>
+  </select>
+  <button (click)="login()">Login</button>
 
-    <input
-      type="text"
-      placeholder="Enter User ID"
-      [(ngModel)]="userId"
-    />
-
-    <input
-      type="password"
-      placeholder="Enter Password"
-      [(ngModel)]="password"
-    />
-
-    <select [(ngModel)]="role">
-      <option value="">Select Role</option>
-      <option value="USER">General User</option>
-      <option value="ADMIN">Admin</option>
-    </select>
-
-    <button (click)="login()">Login</button>
-  </div>
 </div>
