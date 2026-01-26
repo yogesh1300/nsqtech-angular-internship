@@ -1,8 +1,9 @@
-<div class="dashboard-container">
-  <h1>Welcome User</h1>
-  <div class="cards">
-    <div class="card">View Profile</div>
-    <div class="card">Update Info</div>
-    <div class="card">Check Notifications</div>
-  </div>
-</div>
+<h2>User Dashboard</h2>
+
+<div *ngIf="loading">Loading tasks...</div>
+
+<ul *ngIf="!loading">
+  <li *ngFor="let t of tasks">
+    {{t.task}}
+  </li>
+</ul>

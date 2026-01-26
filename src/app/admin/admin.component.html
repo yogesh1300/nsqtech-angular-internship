@@ -1,8 +1,16 @@
-<div class="dashboard-container">
-  <h1>Welcome Admin</h1>
-  <div class="cards">
-    <div class="card">Manage Users</div>
-    <div class="card">View Reports</div>
-    <div class="card">Settings</div>
-  </div>
-</div>
+<h2>Admin Dashboard</h2>
+
+<div *ngIf="loading">Loading users...</div>
+
+<table *ngIf="!loading" border="1" cellpadding="10">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr *ngFor="let u of users">
+    <td>{{u.id}}</td>
+    <td>{{u.name}}</td>
+    <td>{{u.role}}</td>
+  </tr>
+</table>
