@@ -23,7 +23,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<any[]> {
-    return of(this.users).pipe(delay(1000));
+    return of(this.users);
   }
 
   getUserRecords(role: string): Observable<any[]> {
@@ -33,20 +33,20 @@ export class UserService {
     ] : [
       { id: 1, name: 'User Record 1' }
     ];
-    return of(records).pipe(delay(1000)); // Simulate API delay
+    return of(records); // Simulate API delay
   }
 
   editUser(id: string, updatedUser: any): Observable<any> {
     const index = this.users.findIndex(u => u.id === id);
     if (index !== -1) {
       this.users[index] = { ...this.users[index], ...updatedUser };
-      return of(this.users[index]).pipe(delay(1000));
+      return of(this.users[index]);
     }
     return of(null);
   }
 
   deleteUser(id: string): Observable<any> {
     this.users = this.users.filter(u => u.id !== id);
-    return of(true).pipe(delay(1000));
+    return of(true);
   }
 }

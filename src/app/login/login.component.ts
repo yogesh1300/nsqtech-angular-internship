@@ -2,50 +2,36 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username = '';
-  password = '';
-  role = '';
-  errorMessage = '';
-  isLoading = false;
+  username: string = '';
+  password: string = '';
+  role: string = '';
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
   onLogin() {
-    // Basic validation
-    if (!this.username.trim() || !this.password.trim() || !this.role) {
-      this.errorMessage = 'Please fill in all fields';
-      return;
-    }
-
-    this.isLoading = true;
     this.errorMessage = '';
+    this.isLoading = true;
 
-    this.userService.login(this.username, this.password, this.role).subscribe({
-      next: (user) => {
-        this.isLoading = false;
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.errorMessage = 'Invalid credentials. Please check your username, password, and role.';
-        }
-      },
-      error: () => {
-        this.isLoading = false;
-        this.errorMessage = 'Login failed. Please try again.';
-      }
-    });
+    // No delay, instant login check
+    this.isLoading = false;
+    if (this.username && this.password && this.role) {
+      // Store user in localStorage
+      localStorage.setItem('user', JSON.stringify({ username: this.username, role: this.role }));
+      // Navigate to dashboard
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.errorMessage = 'Please fill all the fields';
+    }
   }
 }
