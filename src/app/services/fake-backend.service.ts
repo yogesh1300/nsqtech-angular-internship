@@ -11,7 +11,8 @@ export class FakeBackendService {
   private users: User[] = [
     { username: 'Ravi', role: 'User', status: 'Active' },
     { username: 'Anu', role: 'User', status: 'Inactive' },
-    { username: 'Admin', role: 'Admin', status: 'Active' }
+    { username: 'Admin', role: 'Admin', status: 'Active' },
+    { username: 'Super', role: 'SuperAdmin', status: 'Active' } // added SuperAdmin
   ];
 
   login(username: string, password: string, role: string) {

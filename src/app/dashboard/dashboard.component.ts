@@ -28,15 +28,18 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
-      this.loadRecords();
 
-      if (this.user.role === 'Admin') {
-        this.loadUsers();
-      }
-    } else {
+    if (!storedUser) {
       this.router.navigate(['/login']);
+      return;
+    }
+
+    this.user = JSON.parse(storedUser);
+    this.loadRecords();
+
+    // ✅ Admin + SuperAdmin can VIEW users
+    if (this.user.role === 'Admin' || this.user.role === 'SuperAdmin') {
+      this.loadUsers();
     }
   }
 
@@ -65,13 +68,22 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  // ✅ Only SuperAdmin can edit
   startEdit(user: any) {
+    if (this.user?.role !== 'SuperAdmin') {
+      alert('Only Super Admin can edit users.');
+      return;
+    }
+
     this.editingUserId = user.id;
     this.editedName = user.username;
     this.editedRole = user.role;
   }
 
+  // ✅ Only SuperAdmin can save edit
   saveEdit(user: any) {
+    if (this.user?.role !== 'SuperAdmin') return;
+
     this.userService.editUser(user.id, {
       username: this.editedName,
       role: this.editedRole
@@ -87,7 +99,13 @@ export class DashboardComponent implements OnInit {
     this.editedRole = '';
   }
 
+  // ✅ Only SuperAdmin can delete
   deleteUser(userId: string) {
+    if (this.user?.role !== 'SuperAdmin') {
+      alert('Only Super Admins can delete users.');
+      return;
+    }
+
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(userId).subscribe(() => {
         this.loadUsers();

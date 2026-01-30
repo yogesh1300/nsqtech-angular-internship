@@ -11,7 +11,8 @@ export class DashboardService {
     return of([
       { id: 1, name: 'User One', role: 'USER' },
       { id: 2, name: 'User Two', role: 'USER' },
-      { id: 3, name: 'Admin', role: 'ADMIN' }
+      { id: 3, name: 'Admin', role: 'ADMIN' },
+      { id: 4, name: 'Super Admin', role: 'SuperAdmin' }
     ]).pipe(delay(2000)); // API delay simulation
   }
 

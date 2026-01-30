@@ -12,7 +12,8 @@ export const adminGuard: CanActivateFn = () => {
 
   const user = JSON.parse(userData);
 
-  if (user.role === 'Admin') {
+  // Allow both Admin and SuperAdmin to access admin routes
+  if (user.role === 'Admin' || user.role === 'SuperAdmin') {
     return true;
   }
 

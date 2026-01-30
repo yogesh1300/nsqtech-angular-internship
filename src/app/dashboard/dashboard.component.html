@@ -5,7 +5,7 @@
     <ul>
       <li><a href="#" class="active">Dashboard Home</a></li>
       <li><a href="#">My Records</a></li>
-      <li *ngIf="user?.role === 'Admin'"><a href="#">User Management</a></li>
+      <li *ngIf="user?.role === 'Admin' || user?.role === 'SuperAdmin'"><a href="#">User Management</a></li>
       <li><a href="#">Settings</a></li>
     </ul>
   </div>
@@ -47,8 +47,10 @@
       </table>
     </div>
 
-    <div *ngIf="user?.role === 'Admin'" class="admin-section">
-      <h3>User Management</h3>
+    <div *ngIf="user?.role === 'Admin' || user?.role === 'SuperAdmin'" class="admin-section">
+      <h3>User Management
+        <small *ngIf="user?.role === 'SuperAdmin'" style="margin-left:10px;color:#9ca3af;font-weight:500">(Super Admin can delete users)</small>
+      </h3>
       <div class="user-cards">
         <div class="user-card" *ngFor="let u of users">
           <div *ngIf="editingUserId !== u.id">
@@ -57,7 +59,8 @@
             <p><strong>ID:</strong> {{ u.id }}</p>
             <div class="user-actions">
               <button class="btn btn-primary" (click)="startEdit(u)">Edit</button>
-              <button class="btn btn-danger" (click)="deleteUser(u.id)">Delete</button>
+              <!-- Delete only visible to SuperAdmin -->
+              <button *ngIf="user?.role === 'SuperAdmin'" class="btn btn-danger" (click)="deleteUser(u.id)">Delete</button>
             </div>
           </div>
 

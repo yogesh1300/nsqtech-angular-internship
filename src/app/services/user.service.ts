@@ -7,9 +7,11 @@ import { delay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
+  // ✅ Added SuperAdmin user
   private users = [
-    { id: '1', username: 'admin', password: 'admin', role: 'Admin' },
-    { id: '2', username: 'user', password: 'user', role: 'General User' }
+    { id: '1', username: 'superadmin', password: 'superadmin', role: 'SuperAdmin' },
+    { id: '2', username: 'admin', password: 'admin', role: 'Admin' },
+    { id: '3', username: 'user', password: 'user', role: 'General User' }
   ];
 
   constructor(private http: HttpClient) {}
@@ -30,10 +32,14 @@ export class UserService {
     const records = role === 'Admin' ? [
       { id: 1, name: 'Admin Record 1' },
       { id: 2, name: 'Admin Record 2' }
+    ] : role === 'SuperAdmin' ? [
+      { id: 1, name: 'SuperAdmin Record 1' },
+      { id: 2, name: 'SuperAdmin Record 2' },
+      { id: 3, name: 'SuperAdmin Record 3' }
     ] : [
       { id: 1, name: 'User Record 1' }
     ];
-    return of(records); // Simulate API delay
+    return of(records).pipe(delay(500)); // Simulate API delay
   }
 
   editUser(id: string, updatedUser: any): Observable<any> {
