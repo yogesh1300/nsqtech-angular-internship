@@ -1,59 +1,55 @@
-# Frontend
+# NSQTech Internship Project – Role Based Login System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+## 1. Problem Statement
+In many applications, all admins have the same access. This project separates
+Super Admin and Sub Admin roles to improve security and control.
 
-## Development server
+## 2. Solution Overview
+This is a Single Page Application built using Angular.
+It provides:
+- Login with role selection
+- Role-based dashboard
+- Super Admin with full permissions
+- Sub Admin with limited permissions
 
-To start a local development server, run:
+## 3. Tech Stack
+- Angular 12+
+- TypeScript
+- HTML, CSS
+- RxJS (Observables)
+- LocalStorage (session handling)
 
-```bash
-ng serve
-```
+## 4. User Roles
+### Super Admin
+- View all users
+- Edit user details
+- Delete users
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Sub Admin
+- View users
+- ❌ Cannot edit
+- ❌ Cannot delete
 
-## Code scaffolding
+### General User
+- View own records only
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 5. Application Flow
+Login → Role Check → Dashboard → Permission-based Actions
 
-```bash
-ng generate component component-name
-```
+## 6. Key Files Explained
+- `login.component.ts` – Handles login & session
+- `dashboard.component.ts` – Role-based UI & permissions
+- `user.service.ts` – Fake backend (user data)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 7. How Permissions Are Controlled
+Permissions are checked using the user role stored in localStorage.
 
-```bash
-ng generate --help
-```
+## 8. How to Run the Project
+1. npm install
+2. ng serve
+3. Open http://localhost:4200
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 9. Future Improvements
+- JWT authentication
+- Real backend integration
+- Unit testing
